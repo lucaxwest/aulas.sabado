@@ -1,16 +1,19 @@
-function somar(array) {
-    let total = 0
+let array = [1,2,3]
+let resultado = exec()
 
-    for (let i = 0; i < array.length; i++) {
-        if (array[i] > 0) {
-            total += array[i]
+const exec = function(a, v) {
+    const arrays = array
+    const counts = 0
+
+    const exec02 = function() {
+
+        for (let i = 0; i < arrays.length; i++) {
+            total += arrays[i]
         }
     }
-    return total
+    exec02()
 }
 
-let array = [0, 5, 1, 2];
-let resultado = somar(array)
 
 
-alert(`A soma dos valores do array é: ${(resultado)}`)
+alert(`A soma dos valores do array é: ${resultado}`) 
