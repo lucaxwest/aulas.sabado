@@ -23,7 +23,7 @@ function cadastrar() {
         modelo: prompt('Modelo'),
         placa: prompt('Placa'),
         marca: prompt('Marca'),
-        ano: prompt('Ano')   
+        ano: prompt('Ano')
     }
     baseDeVeiculos.push(veiculo)
 }
