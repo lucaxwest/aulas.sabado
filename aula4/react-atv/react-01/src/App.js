@@ -1,110 +1,144 @@
+import './App.css'
+import { Button, Form, Table, InputGroup } from 'react-bootstrap'
 import { useState } from 'react'
-import './App.css';
+import { FaBeer } from 'react-icons/fa';
+
 
 function App() {
-  const [modelo, setModelo] = useState()
-  const [marca, setMarca] = useState()
-  const [placa, setPlaca] = useState()
-  const [ano, setAno] = useState()
-  const [automoveis, setAutomoveis] = useState([])
-
+  const [placa, setPlaca] = useState('')
+  const [modelo, setModelo] = useState('')
+  const [marca, setMarca] = useState('')
+  const [ano, setAno] = useState('')
+  const [veiculos, setVeiculos] = useState([])
 
   function cadastrar() {
-      const automovel = {
-        modelo,
-        marca,
-        placa,
-        ano
+    let validoParaCadastro = true
+
+    veiculos.forEach((veiculo) => {
+      if(veiculo.placa === placa) {
+        validoParaCadastro = false
       }
-      automoveis.push(automovel)
-      setAutomoveis([...automoveis])    
+    })
       
-    limparForm()
-    }
+      if(validoParaCadastro) {
+        let veiculo = {
+          placa,
+          marca,
+          modelo,
+          ano,
+        } 
+        setVeiculos([veiculo, ...veiculos])
+        alert('Veiculo cadastrado com sucesso')
+        limparForm()
+      } else {
+        alert("Placa já cadastrada")
+      }
+  }
 
   function limparForm() {
+    setPlaca('')
     setModelo('')
     setMarca('')
-    setPlaca('')
     setAno('')
+  }
+
+  function excluir(placa) {
+    veiculos.forEach((veiculo, index)=>{
+      if (veiculo.placa === placa) {
+        veiculos.splice(index, 1)
+        setVeiculos([...veiculos])
+        alert("Veículo excluido com sucesso.")
+      }
+    })
   }
 
   return (
     <>
-     <div className="form">
-        <h1>Automoveis Seminovos</h1>
-        <input
-          className="m5"
-          placeholder="Modelo"
-          value={modelo}
-          onChange={(e) => {
-            setModelo(e.target.value)
-          }}
-        />
-        <input
-          className="m5"
-          placeholder="Marca"
-          type="text"
-          value={marca}
-          onChange={(e) => {
-            setMarca(e.target.value)
-          }}
-        />
-         <input
-          className="m5"
-          placeholder="Placa"
-          value={placa}
-          onChange={(e) => {
-            setPlaca(e.target.value)
-          }}
-        />
-         <input
-          className="m5"
-          placeholder="Ano"
-          type="number"
-          value={ano}
-          onChange={(e) => {
-            setAno(e.target.value)
-          }}
-        />
-        <button className="m5" onClick={cadastrar}>
-          Cadastrar
-        </button>
-        
-        <h1>Pesquisar Automovel</h1>
-        <input
-          className="m5"
-          placeholder="Digite a placa"
-          value={placa}
-          onChange={(e) => {
-            setModelo(e.target.value)
-          }}
-        />
+      <div className="container">
+        <InputGroup className="mb-2 mt-5">
+          <Form.Control
+            value={modelo}
+            onChange={(e) => {
+              setModelo(e.target.value)
+            }}
+            placeholder="Modelo"
+            aria-label="Default"
+            aria-describedby="inputGroup-sizing-default"
+          />
+        </InputGroup>
 
+        <InputGroup className="mb-2">
+          <Form.Control
+            value={marca}
+            onChange={(e) => {
+              setMarca(e.target.value)
+            }}
+            placeholder="Marca"
+            aria-label="Default"
+            aria-describedby="inputGroup-sizing-default"
+          />
+        </InputGroup>
+
+        <InputGroup className="mb-2">
+          <Form.Control
+            value={placa}
+            onChange={(e) => {
+              setPlaca(e.target.value)
+            }}
+            placeholder="Placa"
+            aria-label="Default"
+            aria-describedby="inputGroup-sizing-default"
+          />
+        </InputGroup>
+
+        <InputGroup className="mb-2">
+          <Form.Control
+            value={ano}
+            onChange={(e) => {
+              setAno(e.target.value)
+            }}
+            placeholder="Ano"
+            aria-label="Default"
+            aria-describedby="inputGroup-sizing-default"
+          />
+        </InputGroup>
+        <Button className="mb-3" onClick={cadastrar}>
+        Salvar
+      </Button>
+
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>Modelo</th>
+              <th>Marca</th>
+              <th>Placa</th>
+              <th>Ano</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+            {veiculos.map((veiculo) => {
+              return (
+                <tr>
+                  <td>{veiculo.modelo}</td>
+                  <td>{veiculo.marca}</td>
+                  <td>{veiculo.placa}</td>
+                  <td>{veiculo.ano}</td>
+                  <td>
+                    <Button onClick={()=>{excluir(veiculo.placa)}}>
+                    <FaBeer />
+                    </Button>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </Table>
       </div>
 
-      <table className='tabela'>
-        <tr>
-          <th>Modelo</th>
-          <th>Marca</th>
-          <th>Placa</th>
-          <th>Ano</th>
-        </tr>
-          {
-            automoveis.map((automovel) => {
-            return (
-              <tr>
-                <td>{automovel.modelo}</td>
-                <td>{automovel.marca}</td>
-                <td>{automovel.placa}</td>
-                <td>{automovel.ano}</td>
-              </tr>
-            )
-          })
-        }
-      </table>
+
     </>
   )
 }
 
-export default App;
+export default App
