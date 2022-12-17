@@ -1,8 +1,15 @@
-const somar = function(n1, n2) {
-    return n1 + n2
-}
+const cars = ['porshe', 'civic', 'x4']
 
+const input = document.querySelector('div#app input')
+const button = document.querySelector('div#app button')
 
-alert(`
-    A soma dos valores é: ${somar(2, 5)}
-`)
+button.addEventListener('click', () => {
+    cars.find((car) => {
+      if (car === input.value) {
+        console.log('ok')
+        break
+      } else {
+        console.log('wtf')
+      }
+  })
+})

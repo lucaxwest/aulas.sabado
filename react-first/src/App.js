@@ -4,7 +4,6 @@ import { useState } from 'react'
 function App() {
   const [nome, setNome] = useState('')
   const [idade, setIdade] = useState()
-
   const [pessoas, setPessoas] = useState([])
 
   function cadastrar() {

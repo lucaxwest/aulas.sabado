@@ -6,8 +6,8 @@ function App() {
   const [marca, setMarca] = useState()
   const [placa, setPlaca] = useState()
   const [ano, setAno] = useState()
-
   const [automoveis, setAutomoveis] = useState([])
+
 
   function cadastrar() {
       const automovel = {
@@ -31,7 +31,7 @@ function App() {
 
   return (
     <>
-      <div className="form">
+     <div className="form">
         <h1>Automoveis Seminovos</h1>
         <input
           className="m5"
@@ -70,6 +70,17 @@ function App() {
         <button className="m5" onClick={cadastrar}>
           Cadastrar
         </button>
+        
+        <h1>Pesquisar Automovel</h1>
+        <input
+          className="m5"
+          placeholder="Digite a placa"
+          value={placa}
+          onChange={(e) => {
+            setModelo(e.target.value)
+          }}
+        />
+
       </div>
 
       <table className='tabela'>
