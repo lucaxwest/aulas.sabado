@@ -1,8 +1,7 @@
 import './App.css'
 import { Button, Form, Table, InputGroup } from 'react-bootstrap'
 import { useState } from 'react'
-import { FaBeer } from 'react-icons/fa';
-
+import { FaBeer } from 'react-icons/fa'
 
 function App() {
   const [placa, setPlaca] = useState('')
@@ -15,24 +14,24 @@ function App() {
     let validoParaCadastro = true
 
     veiculos.forEach((veiculo) => {
-      if(veiculo.placa === placa) {
+      if (veiculo.placa === placa) {
         validoParaCadastro = false
       }
     })
-      
-      if(validoParaCadastro) {
-        let veiculo = {
-          placa,
-          marca,
-          modelo,
-          ano,
-        } 
-        setVeiculos([veiculo, ...veiculos])
-        alert('Veiculo cadastrado com sucesso')
-        limparForm()
-      } else {
-        alert("Placa já cadastrada")
+
+    if (validoParaCadastro) {
+      let veiculo = {
+        placa,
+        marca,
+        modelo,
+        ano,
       }
+      setVeiculos([veiculo, ...veiculos])
+      alert('Veiculo cadastrado com sucesso')
+      limparForm()
+    } else {
+      alert('Placa já cadastrada')
+    }
   }
 
   function limparForm() {
@@ -43,11 +42,11 @@ function App() {
   }
 
   function excluir(placa) {
-    veiculos.forEach((veiculo, index)=>{
+    veiculos.forEach((veiculo, index) => {
       if (veiculo.placa === placa) {
         veiculos.splice(index, 1)
         setVeiculos([...veiculos])
-        alert("Veículo excluido com sucesso.")
+        alert('Veículo excluido com sucesso.')
       }
     })
   }
@@ -55,6 +54,7 @@ function App() {
   return (
     <>
       <div className="container">
+      
         <InputGroup className="mb-2 mt-5">
           <Form.Control
             value={modelo}
@@ -102,11 +102,12 @@ function App() {
             aria-describedby="inputGroup-sizing-default"
           />
         </InputGroup>
-        <Button className="mb-3" onClick={cadastrar}>
-        Salvar
-      </Button>
 
-        <Table striped bordered hover>
+        <Button className="mb-3" onClick={cadastrar}>
+          Salvar
+        </Button>
+
+        <Table striped bordered hover variant="striped">
           <thead>
             <tr>
               <th>Modelo</th>
@@ -125,8 +126,12 @@ function App() {
                   <td>{veiculo.placa}</td>
                   <td>{veiculo.ano}</td>
                   <td>
-                    <Button onClick={()=>{excluir(veiculo.placa)}}>
-                    <FaBeer />
+                    <Button
+                      onClick={() => {
+                        excluir(veiculo.placa)
+                      }}
+                    >
+                      <FaBeer />
                     </Button>
                   </td>
                 </tr>
@@ -135,8 +140,6 @@ function App() {
           </tbody>
         </Table>
       </div>
-
-
     </>
   )
 }
